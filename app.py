@@ -5,7 +5,6 @@ app = Chalice(app_name='one-env-edge')
 
 @app.route('/')
 def index():
-    produce()
     return {'hello': 'world'}
 
 @app.route('/produce/{topic}/{message}', methods=['GET'])
@@ -21,8 +20,13 @@ def post_produce():
 
 def produce(topic, message):
     from kafka import KafkaProducer
+    import json
     producer = KafkaProducer(bootstrap_servers='b-2.oetrta-kafka.oz8lgl.c3.kafka.us-west-2.amazonaws.com:9092')
-    future = producer.send(topic, bytes(message, 'utf8'))
+    if type(message) == str:
+        payload = bytes(message, 'utf8')
+    elif type(message) == dict:
+        payload = bytes(json.dumps(message, default=str), 'utf8')
+    future = producer.send(topic, payload)
     result = future.get(timeout=60)
     return result
 
