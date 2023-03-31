@@ -1,0 +1,15 @@
+{
+  "version": "2.0",
+  "app_name": "one-env-edge",
+  "lambda_memory_size": 3008,
+  "manage_iam_role": false,
+  "OLD_iam_role_arn": "arn:aws:iam::997819012307:role/mwc_db_janitor_role",
+  "iam_role_arn": "arn:aws:iam::997819012307:role/one-env-databricks-api-call-role",
+  "subnet_ids": ["subnet-019ab7ee76002eec1", "subnet-0ad4d7280c9c2a9d3"],
+  "security_group_ids": ["sg-02bcf4c9efa4534ff"],
+  "stages": {
+    "dev": {
+      "api_gateway_stage": "api"
+    }
+  }
+}
